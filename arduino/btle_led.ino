@@ -126,7 +126,7 @@ void loop() {
     else if (temperature > desiredTemperature + TEMPERATURE_NUDGE )// too hot
       cool(SINGLE_PROBE_TIME_MS);
     else { //desired temperature reached 
-      //mantain temperature
+      //maintain temperature
       heat(SINGLE_PROBE_TIME_MS/2);
       cool(SINGLE_PROBE_TIME_MS/2);
       break;
