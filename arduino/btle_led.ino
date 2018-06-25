@@ -121,9 +121,9 @@ void loop() {
   int elapsed;
   for (elapsed = 0 ; elapsed < TOTAL_PROBE_TIME_MS  ; elapsed += SINGLE_PROBE_TIME_MS) {
 
-    if (temperature < desiredTemperature - TEMPERATURE_NUDGE ) // too cold
+    if (temperature < desiredTemperature - TEMPERATURE_NUDGE) // too cold
       heat(SINGLE_PROBE_TIME_MS);
-    else if (temperature > desiredTemperature + TEMPERATURE_NUDGE )// too hot
+    else if (temperature > desiredTemperature + TEMPERATURE_NUDGE) // too hot
       cool(SINGLE_PROBE_TIME_MS);
     else { //desired temperature reached 
       //maintain temperature
