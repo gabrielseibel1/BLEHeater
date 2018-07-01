@@ -64,7 +64,7 @@ class BLEHelper(activity: Activity) {
             }, SCAN_PERIOD)
 
             toggleScanning(true, scanStatusListener)
-            btAdapter.bluetoothLeScanner.startScan(scanCallback) //TODO use UUID array
+            btAdapter.bluetoothLeScanner.startScan(scanCallback) //TODO use UUID array as filter
 
         } else {
             toggleScanning(false, scanStatusListener)
