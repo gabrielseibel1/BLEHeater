@@ -42,9 +42,9 @@ class DeviceControlActivity : AppCompatActivity() {
         device_connected.text = getString(R.string.disconnected)
 
         temperature_picker.apply {
-            maxValue = 20
-            minValue = 10
-            value = 15
+            maxValue = 30
+            minValue = 20
+            value = 25
             wrapSelectorWheel = false
         }
 
@@ -96,7 +96,7 @@ class DeviceControlActivity : AppCompatActivity() {
     }
 
     private fun clearUI() {
-        TODO("Build UI first")
+        finish()
     }
 
     private fun updateConnectionState(stringResource: Int) {
