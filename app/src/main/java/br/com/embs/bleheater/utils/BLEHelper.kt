@@ -1,4 +1,4 @@
-package br.com.embs.bleheater
+package br.com.embs.bleheater.utils
 
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter

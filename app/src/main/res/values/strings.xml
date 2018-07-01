@@ -4,4 +4,14 @@
     <string name="scan">SCAN</string>
     <string name="scanning">Scanning …</string>
     <string name="not_scanning">Not scanning</string>
+    <string name="connected">Connected</string>
+    <string name="title_activity_device_control">DeviceControlActivity</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="device_name">Device Name</string>
+    <string name="device_connected">Device Connected</string>
+    <string name="writes">#writes</string>
+    <string name="zero">0</string>
+    <string name="device">Device</string>
+    <string name="status">Status</string>
+    <string name="operations">Operations</string>
 </resources>

@@ -1,8 +1,6 @@
 package br.com.embs.bleheater
 
 import android.Manifest
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -13,6 +11,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import br.com.embs.bleheater.utils.BLEHelper
+import br.com.embs.bleheater.utils.launchActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -98,11 +98,4 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val REQUEST_COARSE_AND_FINE_LOCATION = 1
     }
-}
-
-
-private inline fun <reified T : Activity>Activity.launchActivity(block: Intent.() -> Unit = {}) {
-    val intent = Intent(this, T::class.java)
-    intent.run(block)
-    this.startActivity(intent)
 }

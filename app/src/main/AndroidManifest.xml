@@ -26,8 +26,17 @@
         </activity>
         <activity
             android:name=".deviceList.DeviceListActivity"
-            android:launchMode="singleInstance">
-        </activity>
+            android:launchMode="singleInstance" />
+
+        <service
+            android:name=".utils.BluetoothLeService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".DeviceControlActivity"
+            android:label="@string/title_activity_device_control"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

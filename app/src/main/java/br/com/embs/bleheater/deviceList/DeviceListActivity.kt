@@ -3,8 +3,10 @@ package br.com.embs.bleheater.deviceList
 import android.bluetooth.BluetoothDevice
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import br.com.embs.bleheater.BLEHelper
-import br.com.embs.bleheater.R
+import android.util.Log
+import br.com.embs.bleheater.*
+import br.com.embs.bleheater.utils.BLEHelper
+import br.com.embs.bleheater.utils.launchActivity
 import kotlinx.android.synthetic.main.activity_device_list.*
 
 class DeviceListActivity : AppCompatActivity(),
@@ -40,8 +42,11 @@ class DeviceListActivity : AppCompatActivity(),
         }
     }
 
-    override fun onDeviceSelected(item: BluetoothDevice) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onDeviceSelected(device: BluetoothDevice) {
+        Log.d("onDeviceSelected", "onDeviceSelected ${device.name}")
+        launchActivity<DeviceControlActivity> {
+            putExtra("device", device)
+        }
     }
 
     interface ScanStatusListener {

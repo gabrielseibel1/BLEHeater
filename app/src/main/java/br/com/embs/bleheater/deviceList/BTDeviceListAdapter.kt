@@ -2,6 +2,7 @@ package br.com.embs.bleheater.deviceList
 
 import android.bluetooth.BluetoothDevice
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_btdevice.view.*
  */
 class BTDeviceListAdapter(
         private val devices: MutableList<BluetoothDevice>,
-        private val listener: OnListFragmentInteractionListener?)
+        private val listener: OnListFragmentInteractionListener)
     : RecyclerView.Adapter<BTDeviceListAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
@@ -31,7 +32,7 @@ class BTDeviceListAdapter(
             val item = v.tag as BluetoothDevice
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
-            listener?.onDeviceSelected(item)
+            listener.onDeviceSelected(item)
         }
     }
 
@@ -53,7 +54,7 @@ class BTDeviceListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = devices[position]
-        holder.mIdView.text = item.address
+        holder.mIdView.text = item.name
         holder.mContentView.text = item.uuids?.toString()
 
         with(holder.mView) {

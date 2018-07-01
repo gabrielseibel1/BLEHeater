@@ -20,7 +20,7 @@ class BTDeviceListFragment : Fragment() {
 
     private var listener: OnListFragmentInteractionListener? = null
 
-    public val deviceListAdapter = BTDeviceListAdapter(mutableListOf(), listener)
+    lateinit var deviceListAdapter: BTDeviceListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -40,6 +40,7 @@ class BTDeviceListFragment : Fragment() {
         super.onAttach(context)
         if (context is OnListFragmentInteractionListener) {
             listener = context
+            deviceListAdapter = BTDeviceListAdapter(mutableListOf(), listener!!)
         } else {
             throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
         }
@@ -62,12 +63,6 @@ class BTDeviceListFragment : Fragment() {
      * for more information.
      */
     interface OnListFragmentInteractionListener {
-        fun onDeviceSelected(item: BluetoothDevice)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(listListener: OnListFragmentInteractionListener)
-                = BTDeviceListFragment().apply { listener = listListener}
+        fun onDeviceSelected(device: BluetoothDevice)
     }
 }
