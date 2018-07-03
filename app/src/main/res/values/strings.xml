@@ -16,4 +16,6 @@
     <string name="operations">Operations</string>
     <string name="hello_there">Hello there!</string>
     <string name="press_the_button_below_to_search_for_bluetooth_low_energy_devices">Press the button below to search for Bluetooth Low-Energy Devices</string>
+    <string name="device_name">Device Name</string>
+    <string name="details">Details</string>
 </resources>

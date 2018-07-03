@@ -2,7 +2,6 @@ package br.com.embs.bleheater.deviceList
 
 import android.bluetooth.BluetoothDevice
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,7 +65,7 @@ class BTDeviceListAdapter(
     override fun getItemCount(): Int = devices.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.item_number
+        val mIdView: TextView = mView.device_name
         val mContentView: TextView = mView.content
 
         override fun toString(): String {
