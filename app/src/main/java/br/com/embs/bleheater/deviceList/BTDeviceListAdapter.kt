@@ -53,7 +53,11 @@ class BTDeviceListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = devices[position]
-        holder.mIdView.text = item.name
+
+        if (item.name != null && item.name.isNotBlank())
+            holder.mIdView.text = item.name
+        else holder.mIdView.text = "?"
+
         holder.mContentView.text = item.uuids?.toString()
 
         with(holder.mView) {

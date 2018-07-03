@@ -7,7 +7,6 @@
     <string name="connected">Connected</string>
     <string name="title_activity_device_control">DeviceControlActivity</string>
     <string name="disconnected">Disconnected</string>
-    <string name="device_name">Device Name</string>
     <string name="device_connected">Device Connected</string>
     <string name="writes">#writes</string>
     <string name="zero">0</string>
@@ -16,6 +15,6 @@
     <string name="operations">Operations</string>
     <string name="hello_there">Hello there!</string>
     <string name="press_the_button_below_to_search_for_bluetooth_low_energy_devices">Press the button below to search for Bluetooth Low-Energy Devices</string>
-    <string name="device_name">Device Name</string>
+    <string name="device_name_unknown">Unknown device</string>
     <string name="details">Details</string>
 </resources>
