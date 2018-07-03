@@ -13,18 +13,22 @@ AT+CONN1 - connects to Slave Unit 1
 ************************************************************/
 #include <SoftwareSerial.h>
 SoftwareSerial btModuleSerial(2, 3); // RX, TX
-byte relayDisableCircuit = 7;
+byte PIN_RELAY_ENABLE = 7;
 int PIN_EN_OUT = 4;
 int PIN_STATE_IN = 5;
+int PIN_LM35 = A0;
 
 float SINGLE_PROBE_TIME_MS = 1000, TOTAL_PROBE_TIME_MS = 3000;  
-float temperature = 0, desiredTemperature = 5, TEMPERATURE_NUDGE = 0.1;
+float desiredTemperature = 28, TEMPERATURE_NUDGE = 0.1;
 
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   // REPRESENTS HEATING CIRCUIT OPERATION
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(relayDisableCircuit, OUTPUT);
+  pinMode(PIN_RELAY_ENABLE, OUTPUT);
+
+  //set aref as 5V
+  analogReference(DEFAULT);
   
   // put your setup code here, to run once:
   btModuleSerial.begin(9600);
@@ -88,44 +92,56 @@ void printDouble( double val, unsigned int precision){
    Serial.print(frac,DEC) ;
 }  
 
+float getTemperature() {
+  int reading = analogRead(PIN_LM35);
+  float millivolts = reading * (5000/1024.0);
+  float celsius = millivolts / 10; //10mV por grau 
+  /*float celsius = reading/9.31;*/
+
+  char string[50];
+  char tempString[6], desiredTempString[6];
+  dtostrf(celsius, 4 /*min width*/, 2/*precision*/, tempString);
+  dtostrf(desiredTemperature, 4 /*min width*/, 2/*precision*/, desiredTempString);
+  sprintf(string, "Temperature (celsius) : (%s/%s)", tempString, desiredTempString);
+  Serial.println(string);
+  
+  return celsius;
+}
+
 void heat(float milliSeconds) {
     // turn the LED on (HEATING CIRCUIT ENABLED)
     digitalWrite(LED_BUILTIN, HIGH);   
-    digitalWrite(relayDisableCircuit, LOW);   
+    digitalWrite(PIN_RELAY_ENABLE, HIGH);   
     // wait some time to heat
     delay(milliSeconds);
-    temperature+=0.2; //TODO probe temp from thermometer
 }
 
 void cool(float milliSeconds) {
     // turn the LED off (HEATING CIRCUIT DISABLED)
     digitalWrite(LED_BUILTIN, LOW);   
-    digitalWrite(relayDisableCircuit, HIGH);
+    digitalWrite(PIN_RELAY_ENABLE, LOW);
     // wait some time to cool
     delay(milliSeconds);
-    temperature-=0.2; //TODO probe temp from thermometer
 }
 
 void loop() {
   Serial.println("New temperature?");
   readSerial();
-  char string[50];
-  char tempString[6], desiredTempString[6];
-  dtostrf(temperature, 4 /*min width*/, 2/*precision*/, tempString);
-  dtostrf(desiredTemperature, 4 /*min width*/, 2/*precision*/, desiredTempString);
-  sprintf(string, "Heating ... (%s/%s)", tempString, desiredTempString);
-  Serial.println(string);
 
   // heat or cool resistor until desired temp reached
   // if it cant reach it in TOTAL_PROBE_TIME_MS, reset loop()
   int elapsed;
   for (elapsed = 0 ; elapsed < TOTAL_PROBE_TIME_MS  ; elapsed += SINGLE_PROBE_TIME_MS) {
 
-    if (temperature < desiredTemperature - TEMPERATURE_NUDGE) // too cold
+    float temperature = getTemperature();
+    if (temperature < desiredTemperature - TEMPERATURE_NUDGE) {// too cold
+      Serial.println("Heating ...");
       heat(SINGLE_PROBE_TIME_MS);
-    else if (temperature > desiredTemperature + TEMPERATURE_NUDGE) // too hot
+    } else if (temperature > desiredTemperature + TEMPERATURE_NUDGE) { // too hot
+      Serial.println("Cooling ...");
       cool(SINGLE_PROBE_TIME_MS);
-    else { //desired temperature reached 
+    } else { //desired temperature reached 
+      Serial.println("Mantaining ...");
       //maintain temperature
       heat(SINGLE_PROBE_TIME_MS/2);
       cool(SINGLE_PROBE_TIME_MS/2);
